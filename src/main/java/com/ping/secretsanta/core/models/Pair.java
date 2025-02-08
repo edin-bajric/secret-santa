@@ -1,5 +1,6 @@
 package com.ping.secretsanta.core.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
@@ -37,10 +38,12 @@ public class Pair {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "giver_id", nullable = false, foreignKey = @ForeignKey(name = "fk_employee_id_pair_giver_id"))
+    @JsonManagedReference
     private Employee giver;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "receiver_id", nullable = false, foreignKey = @ForeignKey(name = "fk_employee_id_pair_receiver_id"))
+    @JsonManagedReference
     private Employee receiver;
-
 }
+

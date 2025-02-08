@@ -1,5 +1,6 @@
 package com.ping.secretsanta.core.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.ping.secretsanta.core.models.enums.UserType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -41,9 +42,11 @@ public class Employee implements UserDetails {
     private UserType role;
 
     @OneToMany(mappedBy = "giver", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonBackReference
     private Set<Pair> givenPairs = new HashSet<>();
 
     @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonBackReference
     private Set<Pair> receivedPairs = new HashSet<>();
 
     @Override
