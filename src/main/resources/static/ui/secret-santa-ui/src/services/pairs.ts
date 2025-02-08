@@ -12,4 +12,4 @@ const getReceiver = async () => {
   }
 };
 
-export const PairService = { getReceiver };
+export default { getReceiver };

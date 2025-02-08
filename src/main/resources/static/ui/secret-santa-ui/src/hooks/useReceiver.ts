@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { PairService } from "../services/pairs";
+import { PairService } from "../services";
 
 interface Receiver {
   name: string;
