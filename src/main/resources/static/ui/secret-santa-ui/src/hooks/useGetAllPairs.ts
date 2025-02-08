@@ -5,7 +5,7 @@ const useGetAllPairs = () => {
   return useQuery({
     queryKey: ["pairs"],
     queryFn: SecretSantaService.getAllPairs,
-    enabled: false,
+    enabled: true,
   });
 };
 
