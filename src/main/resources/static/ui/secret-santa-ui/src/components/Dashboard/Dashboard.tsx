@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 
 const Dashboard = () => {
   const { mutate, isPending, isSuccess, isError, error } = useGeneratePairs();
-  const { data: pairs, refetch: refetchPairs } = useGetAllPairs(); 
+  const { data: pairs, refetch: refetchPairs } = useGetAllPairs();
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
 
@@ -33,18 +33,31 @@ const Dashboard = () => {
   return (
     <div className="d-flex flex-column align-items-center justify-content-center vh-100">
       {showSuccessAlert && (
-        <Alert variant="success" onClose={() => setShowSuccessAlert(false)} dismissible>
+        <Alert
+          variant="success"
+          onClose={() => setShowSuccessAlert(false)}
+          dismissible
+        >
           Pairs generated successfully!
         </Alert>
       )}
 
       {showErrorAlert && (
-        <Alert variant="danger" onClose={() => setShowErrorAlert(false)} dismissible>
-          Error: {error instanceof Error ? error.message : "Something went wrong"}
+        <Alert
+          variant="danger"
+          onClose={() => setShowErrorAlert(false)}
+          dismissible
+        >
+          Error:{" "}
+          {error instanceof Error ? error.message : "Something went wrong"}
         </Alert>
       )}
 
-      <Button variant="primary" onClick={handleGeneratePairs} disabled={isPending}>
+      <Button
+        variant="primary"
+        onClick={handleGeneratePairs}
+        disabled={isPending}
+      >
         {isPending ? (
           <>
             <Spinner animation="border" size="sm" /> Generating...
