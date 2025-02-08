@@ -14,7 +14,7 @@ const Home = () => {
       <h1>Welcome to Secret Santa</h1>
       {receiver ? (
         <div>
-          <p>Your gift receiver is:</p>
+          <p>You are giving a gift to:</p>
           <p>
             <strong>
               {receiver.name} {receiver.surname}
