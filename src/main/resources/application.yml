@@ -1,3 +1,9 @@
+configuration:
+  swagger:
+    app: 'Secret Santa API'
+    description: 'Secret Santa implementation'
+    developer: 'Edin Bajrić'
+    email: 'edin.bajric4321@gmail.com'
 spring:
   datasource:
     driverClassName: org.postgresql.Driver
