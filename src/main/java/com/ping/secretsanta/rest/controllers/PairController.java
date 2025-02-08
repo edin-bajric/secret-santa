@@ -1,6 +1,5 @@
 package com.ping.secretsanta.rest.controllers;
 
-import com.ping.secretsanta.core.models.Employee;
 import com.ping.secretsanta.core.services.PairService;
 import com.ping.secretsanta.rest.dto.ReceiverDTO;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -30,10 +29,6 @@ public class PairController {
         }
 
         ReceiverDTO receiverDTO = pairService.findReceiverByUsername(username);
-        if (receiverDTO == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-
         return ResponseEntity.ok(receiverDTO);
     }
 }

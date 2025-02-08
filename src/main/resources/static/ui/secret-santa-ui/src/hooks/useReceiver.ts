@@ -2,8 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { PairService } from "../services";
 
 interface Receiver {
-  name: string;
-  surname: string;
+  name: string | null;
+  surname: string | null;
 }
 
 const useReceiver = () => {

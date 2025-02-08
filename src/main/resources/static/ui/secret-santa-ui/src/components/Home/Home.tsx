@@ -7,14 +7,16 @@ const Home = () => {
     return <div>Loading receiver details...</div>;
   }
 
-  if (error) return <p>{error.message}</p>;
+  if (error) {
+    return <p>Error: {error.message}</p>;
+  }
 
   return (
     <div className="d-flex align-items-center justify-content-center flex-column vh-100 text-center">
       <h1>Welcome to Secret Santa</h1>
-      {receiver ? (
+      {receiver && receiver.name && receiver.surname ? (
         <div>
-          <p>You are giving a gift to:</p>
+          <p>Your gift recipient is:</p>
           <p>
             <strong>
               {receiver.name} {receiver.surname}
@@ -22,7 +24,7 @@ const Home = () => {
           </p>
         </div>
       ) : (
-        <p>You do not have a receiver assigned yet.</p>
+        <p>You do not have a gift receiver assigned yet.</p>
       )}
     </div>
   );

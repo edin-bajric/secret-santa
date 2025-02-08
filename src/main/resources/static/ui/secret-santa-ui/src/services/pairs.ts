@@ -1,6 +1,9 @@
 import appAxios from "./appAxios";
 
-const getReceiver = async () => {
+const getReceiver = async (): Promise<{
+  name: string | null;
+  surname: string | null;
+}> => {
   try {
     const response = await appAxios.get("/pairs/receiver", {
       headers: { Authorization: `Bearer ${localStorage.getItem("userToken")}` },

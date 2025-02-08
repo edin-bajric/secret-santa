@@ -18,13 +18,16 @@ public class PairService {
 
     public ReceiverDTO findReceiverByUsername(String username) {
         Optional<Employee> giver = employeeRepository.findByUsername(username);
-        Pair pair = pairRepository.findByGiver(giver);
-
-        if (pair != null) {
-            Employee receiver = pair.getReceiver();
-            return new ReceiverDTO(receiver.getName(), receiver.getSurname());
+        if (giver.isEmpty()) {
+            throw new IllegalArgumentException("Employee not found");
         }
 
-        return null;
+        Pair pair = pairRepository.findByGiver(giver);
+        if (pair == null) {
+            return new ReceiverDTO(null, null);
+        }
+
+        Employee receiver = pair.getReceiver();
+        return new ReceiverDTO(receiver.getName(), receiver.getSurname());
     }
 }
