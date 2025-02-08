@@ -4,6 +4,7 @@ import com.ping.secretsanta.core.models.Employee;
 import com.ping.secretsanta.core.models.Pair;
 import com.ping.secretsanta.core.repositories.EmployeeRepository;
 import com.ping.secretsanta.core.repositories.PairRepository;
+import com.ping.secretsanta.rest.dto.EmployeeWithoutPairsDTO;
 import com.ping.secretsanta.rest.dto.PairDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -60,4 +64,22 @@ public class SecretSantaService {
         )).toList();
     }
 
+    public List<EmployeeWithoutPairsDTO> getEmployeesWithoutPairs() {
+        List<Employee> allEmployees = employeeRepository.findAll();
+
+        List<Pair> allPairs = pairRepository.findAll();
+
+        Set<Employee> pairedEmployees = allPairs.stream()
+                .flatMap(pair -> Stream.of(pair.getGiver(), pair.getReceiver()))
+                .collect(Collectors.toSet());
+
+        return allEmployees.stream()
+                .filter(employee -> !pairedEmployees.contains(employee))
+                .map(employee -> new EmployeeWithoutPairsDTO(
+                        employee.getId(),
+                        employee.getName(),
+                        employee.getSurname()
+                ))
+                .collect(Collectors.toList());
+    }
 }

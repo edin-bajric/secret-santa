@@ -1,7 +1,7 @@
 package com.ping.secretsanta.rest.controllers;
 
-import com.ping.secretsanta.core.models.Pair;
 import com.ping.secretsanta.core.services.SecretSantaService;
+import com.ping.secretsanta.rest.dto.EmployeeWithoutPairsDTO;
 import com.ping.secretsanta.rest.dto.PairDTO;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
@@ -36,5 +36,15 @@ public class SecretSantaController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(pairs);
+    }
+
+    @GetMapping("/employees-without-pairs")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public ResponseEntity<List<EmployeeWithoutPairsDTO>> getEmployeesWithoutPairs() {
+        List<EmployeeWithoutPairsDTO> employeesWithoutPairs = secretSantaService.getEmployeesWithoutPairs();
+        if (employeesWithoutPairs.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(employeesWithoutPairs);
     }
 }
