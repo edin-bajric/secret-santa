@@ -1,7 +1,7 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { logout } from "../../store/authSlice";
@@ -12,6 +12,7 @@ function NavigationBar() {
   const { userToken } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
   const [decodedToken, setDecodedToken] = useState<any>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (userToken) {
@@ -20,9 +21,14 @@ function NavigationBar() {
     }
   }, [userToken]);
 
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
+  };
+
   return (
     <>
-      <Navbar bg="dark" data-bs-theme="dark">
+      <Navbar bg="dark" data-bs-theme="dark" sticky="top">
         <Container>
           <Navbar.Brand as={Link} to="/">
             Secret Santa
@@ -36,7 +42,10 @@ function NavigationBar() {
           </Nav>
           <Nav>
             {userToken ? (
-              <Nav.Link onClick={() => dispatch(logout())}>Logout</Nav.Link>
+              <>
+                <Nav.Link>{decodedToken?.sub}</Nav.Link>
+                <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+              </>
             ) : (
               <>
                 <Nav.Link as={Link} to="/register">
