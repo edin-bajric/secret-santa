@@ -1,11 +1,23 @@
 import { Button, Spinner, Alert, ListGroup } from "react-bootstrap";
 import useGeneratePairs from "../../hooks/useGeneratePairs";
 import useGetAllPairs from "../../hooks/useGetAllPairs";
+import useGetEmployeesWithoutPairs from "../../hooks/useGetEmployeesWithoutPairs";
 import { useState, useEffect } from "react";
 
 const Dashboard = () => {
   const { mutate, isPending, isSuccess, isError, error } = useGeneratePairs();
-  const { data: pairs, refetch: refetchPairs } = useGetAllPairs();
+  const {
+    data: pairs,
+    isLoading: isPairsLoading,
+    isError: isPairsError,
+    error: pairsError,
+  } = useGetAllPairs();
+  const {
+    data: employeesWithoutPairs,
+    isLoading: isEmployeesLoading,
+    isError: isEmployeesError,
+    error: employeesError,
+  } = useGetEmployeesWithoutPairs();
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
 
@@ -16,11 +28,10 @@ const Dashboard = () => {
   useEffect(() => {
     if (isSuccess) {
       setShowSuccessAlert(true);
-      refetchPairs();
       const timer = setTimeout(() => setShowSuccessAlert(false), 3000);
       return () => clearTimeout(timer);
     }
-  }, [isSuccess, refetchPairs]);
+  }, [isSuccess]);
 
   useEffect(() => {
     if (isError) {
@@ -67,18 +78,48 @@ const Dashboard = () => {
         )}
       </Button>
 
-      {pairs && pairs.length > 0 && (
-        <ListGroup className="mt-4">
-          <ListGroup.Item variant="info" className="text-center">
-            <strong>Generated Pairs</strong>
-          </ListGroup.Item>
-          {pairs.map((pair, index) => (
-            <ListGroup.Item key={index}>
-              <strong>Giver:</strong> {pair.giver} <br />
-              <strong>Receiver:</strong> {pair.receiver}
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
+      {isPairsLoading || isEmployeesLoading ? (
+        <Spinner animation="border" role="status" className="mt-4">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      ) : isPairsError || isEmployeesError ? (
+        <Alert variant="danger" className="mt-4">
+          Failed to load data:{" "}
+          {pairsError instanceof Error
+            ? pairsError.message
+            : employeesError instanceof Error
+            ? employeesError.message
+            : "Unknown error"}
+        </Alert>
+      ) : (
+        <>
+          {pairs && pairs.length > 0 && (
+            <ListGroup className="mt-4 w-50">
+              <ListGroup.Item variant="info" className="text-center">
+                <strong>Generated Pairs</strong>
+              </ListGroup.Item>
+              {pairs.map((pair, index) => (
+                <ListGroup.Item key={index}>
+                  <strong>Giver:</strong> {pair.giver} <br />
+                  <strong>Receiver:</strong> {pair.receiver}
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
+          )}
+
+          {employeesWithoutPairs && employeesWithoutPairs.length > 0 && (
+            <ListGroup className="mt-4 w-50">
+              <ListGroup.Item variant="warning" className="text-center">
+                <strong>Employees Without Pairs</strong>
+              </ListGroup.Item>
+              {employeesWithoutPairs.map((employee, index) => (
+                <ListGroup.Item key={index}>
+                  <strong>Employee:</strong> {employee.name} {employee.surname}
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
+          )}
+        </>
       )}
     </div>
   );
