@@ -122,6 +122,12 @@ All diagrams are included in the `diagrams` directory.
 
 ---
 
+## Screenshots
+
+All screenshots are included in the `screenshots` directory.
+
+---
+
 ## How to Run the Project
 
 ### Backend
