@@ -1,18 +1,19 @@
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { logout } from "../../store/authSlice";
 import { decodeJwtToken } from "../../utils/decoder";
 import { useEffect, useState } from "react";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
 
 function NavigationBar() {
   const { userToken } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
   const [decodedToken, setDecodedToken] = useState<any>(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (userToken) {
@@ -24,10 +25,10 @@ function NavigationBar() {
   }, [userToken]);
 
   useEffect(() => {
-    if (!userToken) {
+    if (!userToken && location.pathname !== "/login" && location.pathname !== "/register") {
       navigate("/login");
     }
-  }, [userToken, navigate]);
+  }, [userToken, navigate, location]);
 
   const handleLogout = () => {
     dispatch(logout());

@@ -100,6 +100,7 @@ const Dashboard = () => {
               </ListGroup.Item>
               {pairs.map((pair, index) => (
                 <ListGroup.Item key={index}>
+                  <strong>{index + 1}. </strong> <br />
                   <strong>Giver:</strong> {pair.giver} <br />
                   <strong>Receiver:</strong> {pair.receiver}
                 </ListGroup.Item>
@@ -114,6 +115,7 @@ const Dashboard = () => {
               </ListGroup.Item>
               {employeesWithoutPairs.map((employee, index) => (
                 <ListGroup.Item key={index}>
+                  <strong>{index + 1}.</strong>
                   <strong>Employee:</strong> {employee.name} {employee.surname}
                 </ListGroup.Item>
               ))}
