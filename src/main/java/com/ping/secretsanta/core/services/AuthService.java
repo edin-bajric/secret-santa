@@ -33,8 +33,6 @@ public class AuthService {
 
             Employee employee = employeeRepository.save(employeeRequestDTO.toEntity());
 
-            String jwt = jwtService.generateToken(employee);
-
             return new EmployeeDTO(employee);
 
         } catch (RuntimeException ex) {
