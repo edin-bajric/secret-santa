@@ -115,7 +115,7 @@ const Dashboard = () => {
               </ListGroup.Item>
               {employeesWithoutPairs.map((employee, index) => (
                 <ListGroup.Item key={index}>
-                  <strong>{index + 1}.</strong>
+                  <strong>{index + 1}. </strong>
                   <strong>Employee:</strong> {employee.name} {employee.surname}
                 </ListGroup.Item>
               ))}
