@@ -51,7 +51,7 @@ function NavigationBar() {
           <Nav>
             {userToken ? (
               <>
-                <Nav.Link>{decodedToken?.sub}</Nav.Link>
+                <Navbar.Text className="text-info">Signed in as: {decodedToken?.sub}</Navbar.Text>
                 <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
               </>
             ) : (
