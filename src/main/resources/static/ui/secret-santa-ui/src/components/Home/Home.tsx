@@ -18,9 +18,9 @@ const Home = () => {
         <div>
           <p>Your gift recipient is:</p>
           <p>
-            <strong>
+            <h3>
               {receiver.name} {receiver.surname}
-            </strong>
+            </h3>
           </p>
         </div>
       ) : (
