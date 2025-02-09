@@ -133,7 +133,7 @@ All diagrams are included in the `diagrams` directory.
 4. Access the API documentation at `http://localhost:8080/swagger-ui.html` (by default).
    
 ### Frontend
-1. Navigate to the `frontend` directory.
+1. Navigate to the `secret-santa-ui` directory.
 2. Install the dependencies:
    ```bash
    npm install
