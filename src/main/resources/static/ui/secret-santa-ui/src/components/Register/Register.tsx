@@ -22,7 +22,7 @@ function Register() {
     formState: {},
   } = useForm<RegisterFormData>();
 
-  const { loading, userToken, success } = useSelector(
+  const { loading, success } = useSelector(
     (state: RootState) => state.auth
   );
 
@@ -32,8 +32,7 @@ function Register() {
 
   useEffect(() => {
     if (success) navigate("/login");
-    if (userToken) navigate("/home");
-  }, [navigate, userToken, success]);
+  }, [navigate, success]);
 
   const onSubmit = (data: RegisterFormData) => {
     dispatch(registerUser(data));
