@@ -42,7 +42,7 @@ const Dashboard = () => {
   }, [isError]);
 
   return (
-    <div className="d-flex flex-column align-items-center justify-content-center vh-100">
+    <div className="d-flex flex-column align-items-center justify-content-center m-5">
       {showSuccessAlert && (
         <Alert
           variant="success"

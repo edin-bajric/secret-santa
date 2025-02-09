@@ -8,6 +8,8 @@ const useGeneratePairs = () => {
     mutationFn: () => SecretSantaService.generatePairs(),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['pairs'] });
+      queryClient.invalidateQueries({ queryKey: ['employeesWithoutPairs'] });
+      queryClient.invalidateQueries({ queryKey: ['receiver'] });
     },
   });
 

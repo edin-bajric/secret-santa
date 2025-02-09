@@ -19,12 +19,17 @@ function NavigationBar() {
       const decoded = decodeJwtToken(userToken);
       setDecodedToken(decoded);
     } else {
-      setDecodedToken(null); 
+      setDecodedToken(null);
     }
   }, [userToken]);
 
+  useEffect(() => {
+    if (!userToken) {
+      navigate("/login");
+    }
+  }, [userToken, navigate]);
+
   const handleLogout = () => {
-    navigate("/login");
     dispatch(logout());
     setDecodedToken(null);
   };
